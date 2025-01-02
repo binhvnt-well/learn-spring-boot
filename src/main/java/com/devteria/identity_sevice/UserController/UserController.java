@@ -2,6 +2,7 @@ package com.devteria.identity_sevice.UserController;
 
 import com.devteria.identity_sevice.UserService.UserService;
 import com.devteria.identity_sevice.dto.request.UserCreationRequest;
+import com.devteria.identity_sevice.dto.request.UserUpdateRequest;
 import com.devteria.identity_sevice.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,5 +28,16 @@ public class UserController {
     @GetMapping("/{userId}")
     User getUserById(@PathVariable String userId) {
         return userService.getUserById(userId);
+    }
+
+    @PutMapping("/{userId}")
+    User updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request) {
+        return userService.updateUsers(userId, request);
+    }
+
+    @DeleteMapping("/{userId}")
+    String deleteUser(@PathVariable String userId) {
+        userService.deleteUser(userId);
+        return "User was deleted";
     }
 }

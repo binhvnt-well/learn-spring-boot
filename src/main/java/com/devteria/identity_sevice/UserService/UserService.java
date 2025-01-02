@@ -1,6 +1,7 @@
 package com.devteria.identity_sevice.UserService;
 
 import com.devteria.identity_sevice.dto.request.UserCreationRequest;
+import com.devteria.identity_sevice.dto.request.UserUpdateRequest;
 import com.devteria.identity_sevice.entity.User;
 import com.devteria.identity_sevice.reponsitory.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,22 @@ public class UserService {
     public User getUserById(String id) {
         return userRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("User is not found"));
+    }
+
+    public User updateUsers(String id, UserUpdateRequest request) {
+        User user = getUserById(id);
+
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        user.setDob(request.getDob());
+        user.setPhone(request.getPhone());
+
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(String id) {
+        userRepository.deleteById(id);
     }
 }
