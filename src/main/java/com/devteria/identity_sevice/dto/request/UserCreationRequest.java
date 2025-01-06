@@ -1,7 +1,11 @@
 package com.devteria.identity_sevice.dto.request;
 
+import jakarta.validation.constraints.Size;
+
 public class UserCreationRequest {
     private String username;
+
+    @Size(min = 6, max = 16, message = "Password must be at least 8 character")
     private String password;
     private String firstName;
     private String lastName;
