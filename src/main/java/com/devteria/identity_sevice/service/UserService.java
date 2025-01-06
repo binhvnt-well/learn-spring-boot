@@ -1,4 +1,4 @@
-package com.devteria.identity_sevice.UserService;
+package com.devteria.identity_sevice.service;
 
 import com.devteria.identity_sevice.dto.request.UserCreationRequest;
 import com.devteria.identity_sevice.dto.request.UserUpdateRequest;
@@ -17,6 +17,9 @@ public class UserService {
     public User createUsers(UserCreationRequest request) {
         User user = new User();
 
+        if (userRepository.existsUserByUsername(request.getUsername())) {
+            throw new RuntimeException("Username already exists");
+        }
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());

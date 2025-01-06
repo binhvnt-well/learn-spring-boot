@@ -1,9 +1,9 @@
-package com.devteria.identity_sevice.UserController;
+package com.devteria.identity_sevice.controller;
 
-import com.devteria.identity_sevice.UserService.UserService;
 import com.devteria.identity_sevice.dto.request.UserCreationRequest;
 import com.devteria.identity_sevice.dto.request.UserUpdateRequest;
 import com.devteria.identity_sevice.entity.User;
+import com.devteria.identity_sevice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
