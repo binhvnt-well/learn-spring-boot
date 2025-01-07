@@ -3,6 +3,8 @@ package com.devteria.identity_sevice.service;
 import com.devteria.identity_sevice.dto.request.UserCreationRequest;
 import com.devteria.identity_sevice.dto.request.UserUpdateRequest;
 import com.devteria.identity_sevice.entity.User;
+import com.devteria.identity_sevice.exception.AppException;
+import com.devteria.identity_sevice.exception.ErrorCode;
 import com.devteria.identity_sevice.reponsitory.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ public class UserService {
         User user = new User();
 
         if (userRepository.existsUserByUsername(request.getUsername())) {
-            throw new RuntimeException("Username already exists");
+            throw new AppException(ErrorCode.USER_EXISTED);
         }
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
