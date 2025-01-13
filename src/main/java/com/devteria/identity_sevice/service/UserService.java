@@ -2,6 +2,7 @@ package com.devteria.identity_sevice.service;
 
 import com.devteria.identity_sevice.dto.request.UserCreationRequest;
 import com.devteria.identity_sevice.dto.request.UserUpdateRequest;
+import com.devteria.identity_sevice.dto.response.UserResponse;
 import com.devteria.identity_sevice.entity.User;
 import com.devteria.identity_sevice.exception.AppException;
 import com.devteria.identity_sevice.exception.ErrorCode;
@@ -33,16 +34,17 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getUserById(String id) {
-        return userRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("User is not found"));
+    public UserResponse getUserById(String id) {
+        return userMapper.toUserResponse(userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User is not found")));
     }
 
-    public User updateUsers(String id, UserUpdateRequest request) {
-        User user = getUserById(id);
+    public UserResponse updateUsers(String id, UserUpdateRequest request) {
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("User is not found"));
         userMapper.updateUser(user, request);
 
-        return userRepository.save(user);
+        return userMapper.toUserResponse(userRepository.save(user));
     }
 
     public void deleteUser(String id) {
