@@ -8,18 +8,24 @@ import com.devteria.identity_sevice.exception.AppException;
 import com.devteria.identity_sevice.exception.ErrorCode;
 import com.devteria.identity_sevice.mapper.UserMapper;
 import com.devteria.identity_sevice.reponsitory.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor // ..
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true) // ..
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    //    https://www.youtube.com/watch?v=3AIjB50cRzU&ab_channel=Devteria
+    //    @Autowired // Sử dụng autowired không phải là 1 best practice.
+//    Nên chúng ta sẽ sử dụng 1 cái anotation là @RequiredArgsConstructor.
+//    Nó sẽ tạo 1 constructor cho tất cả các biến mà bạn define là final.
+    UserRepository userRepository;
 
-    @Autowired
-    private UserMapper userMapper;
+    UserMapper userMapper;
 
     public User createUsers(UserCreationRequest request) {
         if (userRepository.existsUserByUsername(request.getUsername())) {
