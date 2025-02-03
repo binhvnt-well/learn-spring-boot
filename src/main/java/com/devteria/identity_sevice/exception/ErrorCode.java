@@ -5,7 +5,8 @@ public enum ErrorCode {
     UNCATEGORIZED_EXCEPTION(9999, "Uncategorized Exception"),
     INVALID_KEY_EXCEPTION(99999, "Invalid Key Exception"), // Handle when mistake key validate
     USER_EXISTED(1002, "User already exist"),
-    INVALID_PASSWORD(1003, "Password must be at least 8 character");
+    INVALID_PASSWORD(1003, "Password must be at least 8 character"),
+    USER_NOT_EXISTED(1005, "User not exist");
 
 
     ErrorCode(int code, String message) {
