@@ -6,8 +6,8 @@ public enum ErrorCode {
     INVALID_KEY_EXCEPTION(99999, "Invalid Key Exception"), // Handle when mistake key validate
     USER_EXISTED(1002, "User already exist"),
     INVALID_PASSWORD(1003, "Password must be at least 8 character"),
-    USER_NOT_EXISTED(1005, "User not exist");
-
+    USER_NOT_EXISTED(1005, "User not exist"),
+    UNAUTHENTICATED(1006, "Unauthenticated");
 
     ErrorCode(int code, String message) {
         this.code = code;
