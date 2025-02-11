@@ -16,6 +16,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,14 +34,19 @@ public class AuthenticationService {
 
     @NonFinal
     // gen SIGNER_KEY trên web https://generate-random.org/encryption-key-generator?count=1&bytes=32&cipher=aes-256-cbc&string=&password=
-    protected static final String SIGNER_KEY =
-        "y+isKQXASaVT7fdaHZjyuxyG+X4MdglsloeY5xcWknh8U5qSyIdRmQMLVr6acxxc";
+//    protected static final String SIGNER_KEY =
+//        "y+isKQXASaVT7fdaHZjyuxyG+X4MdglsloeY5xcWknh8U5qSyIdRmQMLVr6acxxc";
+
+    // Add key public vào application.yaml file.
+    @Value("jwt.signerKey")
+    private String signerKey;
+
 
     public IntrospectResponse introspect(IntrospectRequest request)
         throws JOSEException, ParseException {
         var token = request.getToken();
 
-        JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
+        JWSVerifier verifier = new MACVerifier(signerKey.getBytes());
 
         SignedJWT signedJWT = SignedJWT.parse(token);
 
@@ -86,7 +92,7 @@ public class AuthenticationService {
         JWSObject jwsObject = new JWSObject(header, payload);
 
         try {
-            jwsObject.sign(new MACSigner(SIGNER_KEY.getBytes()));
+            jwsObject.sign(new MACSigner(signerKey.getBytes()));
             return jwsObject.serialize();
         } catch (JOSEException e) {
 //            log.error("cannot create token", e);

@@ -12,3 +12,7 @@ server:
   port: 8080
   servlet:
     context-path: /identity
+
+#// gen SIGNER_KEY trên web https://generate-random.org/encryption-key-generator?count=1&bytes=32&cipher=aes-256-cbc&string=&password=
+jwt:
+  signerKey: "y+isKQXASaVT7fdaHZjyuxyG+X4MdglsloeY5xcWknh8U5qSyIdRmQMLVr6acxxc"
